@@ -1,0 +1,11 @@
+<div class='container'>
+    <div class='row'>
+        <ul class="nav nav-tabs">
+            <li role="presentation" [routerLinkActive]="['active']"><a [routerLink]="['/employees']">Employees</a></li>
+            <li role="presentation" [routerLinkActive]="['active']"><a [routerLink]="['/departments']">Departments</a></li>
+        </ul>
+    </div>
+    <div class='row body-content'>
+        <router-outlet></router-outlet>
+    </div>
+</div>
