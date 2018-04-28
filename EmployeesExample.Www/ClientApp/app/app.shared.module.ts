@@ -8,22 +8,20 @@ import 'rxjs/add/operator/mergeMap';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './components/app/app.component';
+import { BackendService } from './framework/backend.service';
 import { DepartmentsComponent } from './components/departments/departments.component';
+import { DepartmentsService } from './components/departments/departments.service';
 import { EmployeesComponent } from './components/employees/employees.component';
+import { EmployeesService } from './components/employees/employees.service';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        DepartmentsComponent,
-        EmployeesComponent
-    ],
     imports: [
         CommonModule,
-        HttpModule,
+        HttpClientModule,
         FormsModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'employees', pathMatch: 'full' },
@@ -31,6 +29,16 @@ import { EmployeesComponent } from './components/employees/employees.component';
             { path: 'employees', component: EmployeesComponent },
             { path: '**', redirectTo: 'employees' }
         ])
+    ],
+    declarations: [
+        AppComponent,
+        DepartmentsComponent,
+        EmployeesComponent
+    ],
+    providers: [
+        BackendService,
+        DepartmentsService,
+        EmployeesService
     ]
 })
 export class AppModuleShared {
