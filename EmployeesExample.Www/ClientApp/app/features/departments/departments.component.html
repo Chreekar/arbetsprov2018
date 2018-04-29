@@ -19,5 +19,5 @@
     </div>
 </div>
 <div class="col-md-4 col-md-offset-1">
-    <ee-department-editor [department]="editingDepartment" (onCancel)="cancelEditingDepartment()" (onSave)="saveEditingDepartment($event)"></ee-department-editor>
+    <ee-department-editor [department]="editingDepartment" [isSaving]="isSavingDepartment" (onCancel)="cancelEditingDepartment()" (onSave)="saveEditingDepartment($event)"></ee-department-editor>
 </div>

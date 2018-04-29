@@ -13,6 +13,7 @@ export class DepartmentsComponent implements OnInit
 {
     departments: Department[];
     editingDepartment: Department;
+    isSavingDepartment: boolean;
 
     constructor(private departmentsService: DepartmentsService) 
     {
@@ -60,6 +61,8 @@ export class DepartmentsComponent implements OnInit
 
     saveEditingDepartment(args: OnSaveArgs)
     {
+        this.isSavingDepartment = true;
+
         if (args.id)
         {
             //Redigera existerande avdelning
@@ -69,10 +72,12 @@ export class DepartmentsComponent implements OnInit
                 {
                     this.departments = departments;
                     this.cancelEditingDepartment();
+                    this.isSavingDepartment = false;
                 },
                     (error: HttpResponseStatus) =>
                     {
                         alert(error.message);
+                        this.isSavingDepartment = false;
                     });
         }
         else
@@ -84,10 +89,12 @@ export class DepartmentsComponent implements OnInit
                 {
                     this.departments = departments;
                     this.cancelEditingDepartment();
+                    this.isSavingDepartment = false;
                 },
                     (error: HttpResponseStatus) =>
                     {
                         alert(error.message);
+                        this.isSavingDepartment = false;
                     });
         }
     }

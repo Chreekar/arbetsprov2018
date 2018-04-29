@@ -11,9 +11,13 @@ export class EmployeeEditorComponent implements OnChanges, OnInit
 {
     @Input() employee: Employee;
     @Input() departments: Department[];
+    @Input() isSaving: boolean;
+    
     @Output() onCancel = new EventEmitter();
     @Output() onSave = new EventEmitter<OnSaveArgs>();
 
+    isDirty: boolean;
+    
     firstName: string;
     lastName: string;
     title: string;
@@ -45,6 +49,11 @@ export class EmployeeEditorComponent implements OnChanges, OnInit
         this.reset();
     }
 
+    markAsDirty()
+    {
+        this.isDirty = true;
+    }
+
     save()
     {
         let args = {
@@ -60,8 +69,10 @@ export class EmployeeEditorComponent implements OnChanges, OnInit
 
     //Helpers
 
-    reset()
+    private reset()
     {
+        this.isDirty = false;
+
         this.firstName = null;
         this.lastName = null;
         this.title = null;

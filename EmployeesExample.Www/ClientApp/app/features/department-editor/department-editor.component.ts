@@ -9,8 +9,12 @@ import { Department } from '../departments/departments.service';
 export class DepartmentEditorComponent implements OnChanges, OnInit
 {
     @Input() department: Department;
+    @Input() isSaving: boolean;
+    
     @Output() onCancel = new EventEmitter();
     @Output() onSave = new EventEmitter<OnSaveArgs>();
+
+    isDirty: boolean;
 
     name: string;
 
@@ -37,6 +41,11 @@ export class DepartmentEditorComponent implements OnChanges, OnInit
         this.reset();
     }
 
+    markAsDirty()
+    {
+        this.isDirty = true;
+    }
+
     save()
     {
         let args = {
@@ -49,8 +58,10 @@ export class DepartmentEditorComponent implements OnChanges, OnInit
 
     //Helpers
 
-    reset()
+    private reset()
     {
+        this.isDirty = false;
+
         this.name = null;
     }
 }

@@ -1,10 +1,13 @@
 <div class="col-md-7">
     <h1>List of employees</h1>
-    <div *ngIf="!employees">
+    <div *ngIf="!departments || !employees">
         Loading...
     </div>
-    <div *ngIf="employees">
-        <div *ngIf="employees.length == 0">
+    <div *ngIf="departments && employees">
+        <div *ngIf="departments.length == 0">
+            Please <a [routerLink]="['/departments']">add a department</a>
+        </div>
+        <div *ngIf="departments.length > 0 && employees.length == 0">
             No employees
         </div>
         <div *ngIf="employees.length > 0">
@@ -31,12 +34,7 @@
     </div>
 </div>
 <div class="col-md-4 col-md-offset-1">
-    <div *ngIf="departments">
-        <div *ngIf="departments.length == 0">
-            Please add a department
-        </div>
-        <div *ngIf="departments.length > 0">
-            <ee-employee-editor [departments]="departments" [employee]="editingEmployee" (onCancel)="cancelEditingEmployee()" (onSave)="saveEditingEmployee($event)"></ee-employee-editor>
-        </div>
+    <div *ngIf="departments && departments.length > 0">
+        <ee-employee-editor [departments]="departments" [employee]="editingEmployee" [isSaving]="isSavingEmployee" (onCancel)="cancelEditingEmployee()" (onSave)="saveEditingEmployee($event)"></ee-employee-editor>
     </div>
 </div>

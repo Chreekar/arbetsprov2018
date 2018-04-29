@@ -18,6 +18,7 @@ export class EmployeesComponent implements OnInit
     employees: Employee[];
     filterDepartmentId: string;
     filterQuery: string;
+    isSavingEmployee: boolean;
 
     constructor(private departmentsService: DepartmentsService, private employeesService: EmployeesService) 
     {
@@ -88,6 +89,8 @@ export class EmployeesComponent implements OnInit
 
     saveEditingEmployee(args: OnSaveArgs)
     {
+        this.isSavingEmployee = true;
+
         if (args.id)
         {
             //Redigera existerande anställd
@@ -97,10 +100,12 @@ export class EmployeesComponent implements OnInit
                 {
                     this.employees = employees;
                     this.cancelEditingEmployee();
+                    this.isSavingEmployee = false;
                 },
                     (error: HttpResponseStatus) =>
                     {
                         alert(error.message);
+                        this.isSavingEmployee = false;
                     });
         }
         else
@@ -112,10 +117,12 @@ export class EmployeesComponent implements OnInit
                 {
                     this.employees = employees;
                     this.cancelEditingEmployee();
+                    this.isSavingEmployee = false;
                 },
                     (error: HttpResponseStatus) =>
                     {
                         alert(error.message);
+                        this.isSavingEmployee = false;
                     });
         }
     }

@@ -1,23 +1,23 @@
 <h1>{{ employee ? 'Edit' : 'Create' }} employee</h1>
 <div class="form-group">
     <label for="firstName">First Name</label>
-    <input type="text" class="form-control" id="firstName" [(ngModel)]="firstName" />
+    <input type="text" class="form-control" id="firstName" [(ngModel)]="firstName" (input)="markAsDirty()" />
 </div>
 <div class="form-group">
     <label for="lastName">Last Name</label>
-    <input type="text" class="form-control" id="lastName" [(ngModel)]="lastName" />
+    <input type="text" class="form-control" id="lastName" [(ngModel)]="lastName" (input)="markAsDirty()" />
 </div>
 <div class="form-group">
     <label for="title">Title</label>
-    <input type="text" class="form-control" id="title" [(ngModel)]="title" />
+    <input type="text" class="form-control" id="title" [(ngModel)]="title" (input)="markAsDirty()" />
 </div>
 <div class="form-group">
     <label for="department">Department</label>
-    <select class="form-control" id="department" [(ngModel)]="departmentId">
+    <select class="form-control" id="department" [(ngModel)]="departmentId" (change)="markAsDirty()">
         <option value="{{ department.id }}" *ngFor="let department of departments">{{ department.name }}</option>
     </select>
 </div>
 <div class="form-group">
-    <button class="btn btn-default" (click)="cancel()">Cancel</button>
-    <button class="btn btn-primary" (click)="save()">Save</button>
+    <button class="btn btn-default" (click)="cancel()" *ngIf="isDirty">Cancel</button>
+    <button class="btn btn-primary pull-right" (click)="save()" [disabled]="isSaving">Save</button>
 </div>
