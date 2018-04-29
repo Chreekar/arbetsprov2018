@@ -1,1 +1,28 @@
-<h1>List of employees</h1>
+<div class="col-md-7">
+    <h1>List of employees</h1>
+    <div *ngIf="!employees">
+        Loading...
+    </div>
+    <div *ngIf="employees">
+        <div *ngIf="employees.length == 0">
+            No employees
+        </div>
+        <div *ngIf="employees.length > 0">
+            <ul class="list-group">
+                <li class="list-group-item" [class.active]="employeeIsEditing(employee)" *ngFor="let employee of employees">
+                    <button class="btn btn-danger btn-xs pull-right" (click)="deleteEmployee(employee)">Delete</button>
+                    <button class="btn btn-primary btn-xs pull-right" (click)="setEditingEmployee(employee)">Edit</button>
+                    {{ employee.firstName }} {{ employee.lastName}} - {{ employee.title}} at {{ employee.department.name }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="col-md-5">
+    <div *ngIf="departments.length == 0">
+        Please add a department
+    </div>
+    <div *ngIf="departments.length > 0">
+        <ee-employee-editor [departments]="departments" [employee]="editingEmployee" (onCancel)="cancelEditingEmployee()" (onSave)="saveEditingEmployee($event)"></ee-employee-editor>
+    </div>
+</div>

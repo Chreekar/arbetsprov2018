@@ -13,9 +13,10 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './features/app/app.component';
 import { BackendService } from './framework/backend.service';
-import { DepartmentEditorComponent } from './features/deapartment-editor/department-editor.component';
+import { DepartmentEditorComponent } from './features/department-editor/department-editor.component';
 import { DepartmentsComponent } from './features/departments/departments.component';
 import { DepartmentsService } from './features/departments/departments.service';
+import { EmployeeEditorComponent } from './features/employee-editor/employee-editor.component';
 import { EmployeesComponent } from './features/employees/employees.component';
 import { EmployeesService } from './features/employees/employees.service';
 
@@ -35,6 +36,7 @@ import { EmployeesService } from './features/employees/employees.service';
         AppComponent,
         DepartmentEditorComponent,
         DepartmentsComponent,
+        EmployeeEditorComponent,
         EmployeesComponent
     ],
     providers: [

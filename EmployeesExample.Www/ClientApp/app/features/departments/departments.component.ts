@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { OnSaveArgs } from '../deapartment-editor/department-editor.component';
+import { OnSaveArgs } from '../department-editor/department-editor.component';
 import { Department, DepartmentsService } from './departments.service';
 import { HttpResponseStatus } from '../../framework/backend.service';
 

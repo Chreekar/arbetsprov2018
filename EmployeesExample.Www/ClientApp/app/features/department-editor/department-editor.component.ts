@@ -45,7 +45,6 @@ export class DepartmentEditorComponent implements OnChanges, OnInit
         };
 
         this.onSave.emit(args);
-        this.reset();
     }
 
     //Helpers
