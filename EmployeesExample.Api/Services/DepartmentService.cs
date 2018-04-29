@@ -15,6 +15,8 @@ namespace EmployeesExample.Api.Services
     /// </summary>
     public class DepartmentService : Service
     {
+        public EmployeeRepository EmployeeRepository { get; set; }
+
         public DepartmentRepository DepartmentRepository { get; set; }
 
         /// <summary>
@@ -106,6 +108,13 @@ namespace EmployeesExample.Api.Services
             if (department == null)
             {
                 Response.StatusCode = (int)HttpStatusCode.NotFound;
+                return null;
+            }
+
+            if (EmployeeRepository.GetEmployees().Any(x => x.DepartmentId == department.Id))
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                Response.StatusDescription = "Department is not empty";
                 return null;
             }
 
