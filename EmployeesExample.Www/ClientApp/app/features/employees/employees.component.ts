@@ -32,16 +32,16 @@ export class EmployeesComponent implements OnInit
             this.departmentsService.getDepartments(),
             this.employeesService.getEmployees()
         ])
-            .subscribe(results =>
-            {
-                this.departments = results[0];
-                this.employees = results[1];
-            },
-                (error: HttpResponseStatus) =>
-                {
-                    alert(error.message);
-                    this.employees = [];
-                });
+        .subscribe(results =>
+        {
+            this.departments = results[0];
+            this.employees = results[1];
+        },
+        (error: HttpResponseStatus) =>
+        {
+            alert(error.message);
+            this.employees = [];
+        });
     }
 
     cancelEditingEmployee()
@@ -58,10 +58,10 @@ export class EmployeesComponent implements OnInit
                 {
                     this.employees = this.employees.filter(x => x.id != employee.id);
                 },
-                    (error: HttpResponseStatus) =>
-                    {
-                        alert(error.message);
-                    });
+                (error: HttpResponseStatus) =>
+                {
+                    alert(error.message);
+                });
         }
     }
 
@@ -102,11 +102,11 @@ export class EmployeesComponent implements OnInit
                     this.cancelEditingEmployee();
                     this.isSavingEmployee = false;
                 },
-                    (error: HttpResponseStatus) =>
-                    {
-                        alert(error.message);
-                        this.isSavingEmployee = false;
-                    });
+                (error: HttpResponseStatus) =>
+                {
+                    alert(error.message);
+                    this.isSavingEmployee = false;
+                });
         }
         else
         {
@@ -119,11 +119,11 @@ export class EmployeesComponent implements OnInit
                     this.cancelEditingEmployee();
                     this.isSavingEmployee = false;
                 },
-                    (error: HttpResponseStatus) =>
-                    {
-                        alert(error.message);
-                        this.isSavingEmployee = false;
-                    });
+                (error: HttpResponseStatus) =>
+                {
+                    alert(error.message);
+                    this.isSavingEmployee = false;
+                });
         }
     }
 

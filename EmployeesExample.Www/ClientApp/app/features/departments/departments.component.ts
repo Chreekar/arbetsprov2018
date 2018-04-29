@@ -26,11 +26,11 @@ export class DepartmentsComponent implements OnInit
             {
                 this.departments = departments;
             },
-                (error: HttpResponseStatus) =>
-                {
-                    alert(error.message);
-                    this.departments = [];
-                });
+            (error: HttpResponseStatus) =>
+            {
+                alert(error.message);
+                this.departments = [];
+            });
     }
 
     cancelEditingDepartment()
@@ -47,10 +47,10 @@ export class DepartmentsComponent implements OnInit
                 {
                     this.departments = this.departments.filter(x => x.id != department.id);
                 },
-                    (error: HttpResponseStatus) =>
-                    {
-                        alert(error.message);
-                    });
+                (error: HttpResponseStatus) =>
+                {
+                    alert(error.message);
+                });
         }
     }
 
@@ -74,11 +74,11 @@ export class DepartmentsComponent implements OnInit
                     this.cancelEditingDepartment();
                     this.isSavingDepartment = false;
                 },
-                    (error: HttpResponseStatus) =>
-                    {
-                        alert(error.message);
-                        this.isSavingDepartment = false;
-                    });
+                (error: HttpResponseStatus) =>
+                {
+                    alert(error.message);
+                    this.isSavingDepartment = false;
+                });
         }
         else
         {
@@ -91,11 +91,11 @@ export class DepartmentsComponent implements OnInit
                     this.cancelEditingDepartment();
                     this.isSavingDepartment = false;
                 },
-                    (error: HttpResponseStatus) =>
-                    {
-                        alert(error.message);
-                        this.isSavingDepartment = false;
-                    });
+                (error: HttpResponseStatus) =>
+                {
+                    alert(error.message);
+                    this.isSavingDepartment = false;
+                });
         }
     }
 
