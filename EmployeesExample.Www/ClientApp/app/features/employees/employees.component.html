@@ -12,13 +12,13 @@
                 <li class="list-group-item" [class.active]="employeeIsEditing(employee)" *ngFor="let employee of employees">
                     <button class="btn btn-danger btn-xs pull-right" (click)="deleteEmployee(employee)">Delete</button>
                     <button class="btn btn-primary btn-xs pull-right" (click)="setEditingEmployee(employee)">Edit</button>
-                    {{ employee.firstName }} {{ employee.lastName}} - {{ employee.title}} at {{ employee.department.name }}
+                    {{ employee.firstName }} {{ employee.lastName}} <small>{{ employee.title}} at {{ employee.department.name }}</small>
                 </li>
             </ul>
         </div>
     </div>
 </div>
-<div class="col-md-5">
+<div class="col-md-4 col-md-offset-1">
     <div *ngIf="departments.length == 0">
         Please add a department
     </div>

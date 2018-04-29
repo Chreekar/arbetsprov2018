@@ -2,3 +2,9 @@
 {
     margin-left: 5px;
 }
+
+.list-group small
+{
+    color: #777;
+    margin-left: 7px;
+}
