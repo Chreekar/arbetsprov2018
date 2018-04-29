@@ -5,6 +5,7 @@ import { OnSaveArgs } from '../employee-editor/employee-editor.component';
 import { Department, DepartmentsService } from '../departments/departments.service';
 import { Employee, EmployeesService } from './employees.service';
 import { HttpResponseStatus } from '../../framework/backend.service';
+import { SaveStatus } from '../../framework/enums';
 
 @Component({
     selector: 'ee-employees',
@@ -16,18 +17,18 @@ export class EmployeesComponent implements OnInit
     departments: Department;
     editingEmployee: Employee;
     employees: Employee[];
+    employeeSaveStatus: SaveStatus;
     filterDepartmentId: string;
     filterQuery: string;
-    isSavingEmployee: boolean;
 
     constructor(private departmentsService: DepartmentsService, private employeesService: EmployeesService) 
     {
+        this.filterDepartmentId = '';
+        this.employeeSaveStatus = 'Idle';
     }
 
     ngOnInit()
     {
-        this.filterDepartmentId = '';
-
         Observable.forkJoin([
             this.departmentsService.getDepartments(),
             this.employeesService.getEmployees()
@@ -57,6 +58,11 @@ export class EmployeesComponent implements OnInit
                 .subscribe(employee =>
                 {
                     this.employees = this.employees.filter(x => x.id != employee.id);
+
+                    if (this.editingEmployee && employee.id == this.editingEmployee.id)
+                    {
+                        this.cancelEditingEmployee();
+                    }
                 },
                 (error: HttpResponseStatus) =>
                 {
@@ -89,23 +95,23 @@ export class EmployeesComponent implements OnInit
 
     saveEditingEmployee(args: OnSaveArgs)
     {
-        this.isSavingEmployee = true;
+        this.employeeSaveStatus = 'Saving';
 
-        if (args.id)
+        if (this.editingEmployee)
         {
             //Redigera existerande anställd
-            this.employeesService.updateEmployee(args.id, args.firstName, args.lastName, args.title, args.departmentId)
+            this.employeesService.updateEmployee(this.editingEmployee.id, args.firstName, args.lastName, args.title, args.departmentId)
                 .flatMap(department => this.employeesService.getEmployees())
                 .subscribe(employees =>
                 {
+                    this.employeeSaveStatus = 'Idle';
                     this.employees = employees;
                     this.cancelEditingEmployee();
-                    this.isSavingEmployee = false;
                 },
                 (error: HttpResponseStatus) =>
                 {
+                    this.employeeSaveStatus = 'Error';
                     alert(error.message);
-                    this.isSavingEmployee = false;
                 });
         }
         else
@@ -115,20 +121,21 @@ export class EmployeesComponent implements OnInit
                 .flatMap(employee => this.employeesService.getEmployees())
                 .subscribe(employees =>
                 {
+                    this.employeeSaveStatus = 'Idle';
                     this.employees = employees;
                     this.cancelEditingEmployee();
-                    this.isSavingEmployee = false;
                 },
                 (error: HttpResponseStatus) =>
                 {
+                    this.employeeSaveStatus = 'Error';
                     alert(error.message);
-                    this.isSavingEmployee = false;
                 });
         }
     }
 
     setEditingEmployee(employee: Employee)
     {
+        this.employeeSaveStatus = 'Idle';
         this.editingEmployee = employee;
     }
 }

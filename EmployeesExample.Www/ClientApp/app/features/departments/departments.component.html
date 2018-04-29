@@ -19,5 +19,6 @@
     </div>
 </div>
 <div class="col-md-4 col-md-offset-1">
-    <ee-department-editor [department]="editingDepartment" [isSaving]="isSavingDepartment" (onCancel)="cancelEditingDepartment()" (onSave)="saveEditingDepartment($event)"></ee-department-editor>
+    <h1>{{ editingDepartment ? 'Edit' : 'Create' }} department</h1>
+    <ee-department-editor [department]="editingDepartment" [saveStatus]="departmentSaveStatus" (onCancel)="cancelEditingDepartment()" (onSave)="saveEditingDepartment($event)"></ee-department-editor>
 </div>

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { OnSaveArgs } from '../department-editor/department-editor.component';
 import { Department, DepartmentsService } from './departments.service';
 import { HttpResponseStatus } from '../../framework/backend.service';
+import { SaveStatus } from '../../framework/enums';
 
 @Component({
     selector: 'ee-departments',
@@ -12,11 +13,12 @@ import { HttpResponseStatus } from '../../framework/backend.service';
 export class DepartmentsComponent implements OnInit
 {
     departments: Department[];
+    departmentSaveStatus: SaveStatus;
     editingDepartment: Department;
-    isSavingDepartment: boolean;
 
     constructor(private departmentsService: DepartmentsService) 
     {
+        this.departmentSaveStatus = 'Idle';
     }
 
     ngOnInit()
@@ -46,6 +48,11 @@ export class DepartmentsComponent implements OnInit
                 .subscribe(department =>
                 {
                     this.departments = this.departments.filter(x => x.id != department.id);
+                    
+                    if (this.editingDepartment && department.id == this.editingDepartment.id)
+                    {
+                        this.cancelEditingDepartment();
+                    }
                 },
                 (error: HttpResponseStatus) =>
                 {
@@ -61,23 +68,23 @@ export class DepartmentsComponent implements OnInit
 
     saveEditingDepartment(args: OnSaveArgs)
     {
-        this.isSavingDepartment = true;
+        this.departmentSaveStatus = 'Saving';
 
-        if (args.id)
+        if (this.editingDepartment)
         {
             //Redigera existerande avdelning
-            this.departmentsService.updateDepartment(args.id, args.name)
+            this.departmentsService.updateDepartment(this.editingDepartment.id, args.name)
                 .flatMap(department => this.departmentsService.getDepartments())
                 .subscribe(departments =>
                 {
+                    this.departmentSaveStatus = 'Idle';
                     this.departments = departments;
                     this.cancelEditingDepartment();
-                    this.isSavingDepartment = false;
                 },
                 (error: HttpResponseStatus) =>
                 {
+                    this.departmentSaveStatus = 'Error';
                     alert(error.message);
-                    this.isSavingDepartment = false;
                 });
         }
         else
@@ -87,20 +94,21 @@ export class DepartmentsComponent implements OnInit
                 .flatMap(department => this.departmentsService.getDepartments())
                 .subscribe(departments =>
                 {
+                    this.departmentSaveStatus = 'Idle';
                     this.departments = departments;
                     this.cancelEditingDepartment();
-                    this.isSavingDepartment = false;
                 },
                 (error: HttpResponseStatus) =>
                 {
+                    this.departmentSaveStatus = 'Error';
                     alert(error.message);
-                    this.isSavingDepartment = false;
                 });
         }
     }
 
     setEditingDepartment(department: Department)
     {
+        this.departmentSaveStatus = 'Idle';
         this.editingDepartment = department;
     }
 }

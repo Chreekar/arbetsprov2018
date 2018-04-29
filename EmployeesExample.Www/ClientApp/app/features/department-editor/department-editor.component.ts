@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 
 import { Department } from '../departments/departments.service';
+import { SaveStatus } from '../../framework/enums';
 
 @Component({
     selector: 'ee-department-editor',
@@ -9,7 +10,7 @@ import { Department } from '../departments/departments.service';
 export class DepartmentEditorComponent implements OnChanges, OnInit
 {
     @Input() department: Department;
-    @Input() isSaving: boolean;
+    @Input() saveStatus: SaveStatus;
     
     @Output() onCancel = new EventEmitter();
     @Output() onSave = new EventEmitter<OnSaveArgs>();
@@ -25,13 +26,16 @@ export class DepartmentEditorComponent implements OnChanges, OnInit
 
     ngOnChanges()
     {
-        if (this.department)
+        if (this.saveStatus == 'Idle')
         {
-            this.name = this.department.name;
-        }
-        else
-        {
-            this.reset();
+            if (this.department)
+            {
+                this.name = this.department.name;
+            }
+            else
+            {
+                this.reset();
+            }
         }
     }
 
@@ -49,7 +53,6 @@ export class DepartmentEditorComponent implements OnChanges, OnInit
     save()
     {
         let args = {
-            id: this.department ? this.department.id : null,
             name: this.name
         };
 
@@ -68,6 +71,5 @@ export class DepartmentEditorComponent implements OnChanges, OnInit
 
 export interface OnSaveArgs
 {
-    id?: number;
     name: string;
 }

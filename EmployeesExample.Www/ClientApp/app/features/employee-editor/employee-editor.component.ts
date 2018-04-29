@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 
 import { Department } from '../departments/departments.service';
 import { Employee } from '../employees/employees.service';
+import { SaveStatus } from '../../framework/enums';
 
 @Component({
     selector: 'ee-employee-editor',
@@ -11,7 +12,7 @@ export class EmployeeEditorComponent implements OnChanges, OnInit
 {
     @Input() employee: Employee;
     @Input() departments: Department[];
-    @Input() isSaving: boolean;
+    @Input() saveStatus: SaveStatus;
     
     @Output() onCancel = new EventEmitter();
     @Output() onSave = new EventEmitter<OnSaveArgs>();
@@ -30,16 +31,19 @@ export class EmployeeEditorComponent implements OnChanges, OnInit
 
     ngOnChanges()
     {
-        if (this.employee)
+        if (this.saveStatus == 'Idle')
         {
-            this.firstName = this.employee.firstName;
-            this.lastName = this.employee.lastName;
-            this.title = this.employee.title;
-            this.departmentId = this.employee.department.id;
-        }
-        else
-        {
-            this.reset();
+            if (this.employee)
+            {
+                this.firstName = this.employee.firstName;
+                this.lastName = this.employee.lastName;
+                this.title = this.employee.title;
+                this.departmentId = this.employee.department.id;
+            }
+            else
+            {
+                this.reset();
+            }
         }
     }
 
@@ -57,7 +61,6 @@ export class EmployeeEditorComponent implements OnChanges, OnInit
     save()
     {
         let args = {
-            id: this.employee ? this.employee.id : null,
             firstName: this.firstName,
             lastName: this.lastName,
             title: this.title,
@@ -82,7 +85,6 @@ export class EmployeeEditorComponent implements OnChanges, OnInit
 
 export interface OnSaveArgs
 {
-    id?: number;
     firstName: string;
     lastName: string;
     title: string;
