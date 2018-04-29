@@ -1,6 +1,10 @@
 # Arbetsprov 2018
 Lista och redigera påhittade avdelningar och anställda, spara i en databas i minnet
 
+### Installationsintruktioner
+
+Öppna solution i Visual Studio (.NET Core SDK behöver vara installerat), bygg och kör.
+
 ### Noteringar om ServiceStack
 
 * AppHost.cs är ServiceStacks ingång och den som registrerar tjänster, databaskoppling mm
