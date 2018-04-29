@@ -1,8 +1,8 @@
 # Arbetsprov 2018
-Lista och redigera påhittade avdelningar och anställda, spara i en databas i minnet
+Lista och redigera pÃ¥hittade avdelningar och anstÃ¤llda, spara i en databas i minnet
 
 ### Noteringar om ServiceStack
 
-* AppHost.cs är ServiceStacks ingång och den som registrerar tjänster, databaskoppling mm
-* En licensnyckel behöver anges i appsettings.json för att kunna fortsätta exekvera efter ett visst antal api-anrop
-* Mer info finns på http://docs.servicestack.net/create-your-first-webservice
+* AppHost.cs Ã¤r ServiceStacks ingÃ¥ng och den som registrerar tjÃ¤nster, databaskoppling mm
+* En licensnyckel behÃ¶ver anges i appsettings.json fÃ¶r att kunna kÃ¶ra i en annan miljÃ¶ Ã¤n localhost
+* Mer info finns pÃ¥ http://docs.servicestack.net/create-your-first-webservice
