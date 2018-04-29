@@ -11,12 +11,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
-import { AppComponent } from './components/app/app.component';
+import { AppComponent } from './features/app/app.component';
 import { BackendService } from './framework/backend.service';
-import { DepartmentsComponent } from './components/departments/departments.component';
-import { DepartmentsService } from './components/departments/departments.service';
-import { EmployeesComponent } from './components/employees/employees.component';
-import { EmployeesService } from './components/employees/employees.service';
+import { DepartmentsComponent } from './features/departments/departments.component';
+import { DepartmentsService } from './features/departments/departments.service';
+import { EmployeesComponent } from './features/employees/employees.component';
+import { EmployeesService } from './features/employees/employees.service';
 
 @NgModule({
     imports: [
