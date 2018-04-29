@@ -1,1 +1,23 @@
-<h1>List of departments</h1>
+<div class="col-md-7">
+    <h1>List of departments</h1>
+    <div *ngIf="!departments">
+        Loading...
+    </div>
+    <div *ngIf="departments">
+        <div *ngIf="departments.length == 0">
+            No departments
+        </div>
+        <div *ngIf="departments.length > 0">
+            <ul class="list-group">
+                <li class="list-group-item" [class.active]="departmentIsEditing(department)" *ngFor="let department of departments">
+                    <button class="btn btn-danger btn-xs pull-right" (click)="deleteDepartment(department)">Delete</button>
+                    <button class="btn btn-primary btn-xs pull-right" (click)="setEditingDepartment(department)">Edit</button>
+                    {{ department.name }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="col-md-5">
+    <ee-department-editor [department]="editingDepartment" (onCancel)="cancelEditingDepartment()" (onSave)="saveEditingDepartment($event)"></ee-department-editor>
+</div>

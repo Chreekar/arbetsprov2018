@@ -4,7 +4,7 @@ import { Employee, EmployeesService } from './employees.service';
 import { HttpResponseStatus } from '../../framework/backend.service';
 
 @Component({
-    selector: 'employees',
+    selector: 'ee-employees',
     templateUrl: './employees.component.html'
 })
 export class EmployeesComponent
