@@ -14,10 +14,10 @@ import { HttpResponseStatus } from '../../framework/backend.service';
 export class EmployeesComponent implements OnInit
 {
     departments: Department;
-    employees: Employee[];
     editingEmployee: Employee;
-    filteredEmployees: Employee[];
-    query: string;
+    employees: Employee[];
+    filterDepartmentId: string;
+    filterQuery: string;
 
     constructor(private departmentsService: DepartmentsService, private employeesService: EmployeesService) 
     {
@@ -25,6 +25,8 @@ export class EmployeesComponent implements OnInit
 
     ngOnInit()
     {
+        this.filterDepartmentId = '';
+
         Observable.forkJoin([
             this.departmentsService.getDepartments(),
             this.employeesService.getEmployees()
@@ -69,14 +71,19 @@ export class EmployeesComponent implements OnInit
 
     getFilteredEmployees()
     {
-        if (this.query && this.query.length > 0)
+        let result = this.employees;
+
+        if (this.filterQuery && this.filterQuery.length > 0)
         {
-            return this.employeesService.filterEmployees(this.employees, this.query);
+            result = this.employeesService.filterEmployees(this.employees, this.filterQuery);
         }
-        else
+
+        if (this.filterDepartmentId)
         {
-            return this.employees;
+            result = result.filter(employee => employee.department.id == parseInt(this.filterDepartmentId));
         }
+
+        return result;
     }
 
     saveEditingEmployee(args: OnSaveArgs)

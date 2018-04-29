@@ -10,7 +10,11 @@
         <div *ngIf="employees.length > 0">
             <div class="filter">
                 <div class="form-group">
-                    <input type="text" class="form-control" [(ngModel)]="query" placeholder="Filter by first name or last name" />
+                    <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Filter by first name or last name" />
+                    <select class="form-control" [(ngModel)]="filterDepartmentId">
+                        <option value="">All departments</option>
+                        <option value="{{ department.id }}" *ngFor="let department of departments">{{ department.name }}</option>
+                    </select>
                 </div>
             </div>
             <div>

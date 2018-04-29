@@ -3,6 +3,17 @@
     margin: 25px 0;
 }
 
+.filter .form-control
+{
+    width: 49%;
+    display: inline-block;
+}
+
+.filter .form-control:last-child
+{
+    float: right;
+}
+
 .list-group .btn-xs
 {
     margin-left: 5px;
