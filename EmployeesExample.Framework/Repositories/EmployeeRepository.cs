@@ -96,7 +96,7 @@ namespace EmployeesExample.Framework.Repositories
         {
             using (IDbConnection db = DbFactory.OpenDbConnection())
             {
-                var storedEmployee = db.SingleById<Employee>(departmentId);
+                var storedEmployee = db.SingleById<Employee>(employeeId);
 
                 storedEmployee.FirstName = firstName;
                 storedEmployee.LastName = lastName;
@@ -106,7 +106,7 @@ namespace EmployeesExample.Framework.Repositories
 
                 db.Save(storedEmployee);
 
-                Logger.LogInformation($"Updated employee with id {departmentId}");
+                Logger.LogInformation($"Updated employee with id {employeeId}");
             }
         }
 
