@@ -14,6 +14,18 @@ export class EmployeesService
     }
 
     /**
+     * Filtrera listan enligt en sökfras
+     * @param employees Listan som ska filtreras
+     * @param query Sökfrasen som ska matcha en del av förnamn eller efternamn
+     */
+    filterEmployees(employees: Employee[], query: string)
+    {
+        let q = query.toLowerCase();
+
+        return employees.filter(x => x.firstName.toLowerCase().indexOf(q) >= 0 || x.lastName.toLowerCase().indexOf(q) >= 0);
+    }
+
+    /**
      * Sök efter anställda
      * @param departmentId Alla hämtas om denna inte anges
      */

@@ -8,21 +8,31 @@
             No employees
         </div>
         <div *ngIf="employees.length > 0">
-            <ul class="list-group">
-                <li class="list-group-item" [class.active]="employeeIsEditing(employee)" *ngFor="let employee of employees">
-                    <button class="btn btn-danger btn-xs pull-right" (click)="deleteEmployee(employee)">Delete</button>
-                    <button class="btn btn-primary btn-xs pull-right" (click)="setEditingEmployee(employee)">Edit</button>
-                    {{ employee.firstName }} {{ employee.lastName}} <small>{{ employee.title}} at {{ employee.department.name }}</small>
-                </li>
-            </ul>
+            <div class="filter">
+                <div class="form-group">
+                    <input type="text" class="form-control" [(ngModel)]="query" placeholder="Filter by first name or last name" />
+                </div>
+            </div>
+            <div>
+                <ul class="list-group">
+                    <li class="list-group-item" [class.active]="employeeIsEditing(employee)" *ngFor="let employee of getFilteredEmployees()">
+                        <button class="btn btn-danger btn-xs pull-right" (click)="deleteEmployee(employee)">Delete</button>
+                        <button class="btn btn-primary btn-xs pull-right" (click)="setEditingEmployee(employee)">Edit</button>
+                        {{ employee.firstName }} {{ employee.lastName}}
+                        <small>{{ employee.title}} at {{ employee.department.name }}</small>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
 <div class="col-md-4 col-md-offset-1">
-    <div *ngIf="departments.length == 0">
-        Please add a department
-    </div>
-    <div *ngIf="departments.length > 0">
-        <ee-employee-editor [departments]="departments" [employee]="editingEmployee" (onCancel)="cancelEditingEmployee()" (onSave)="saveEditingEmployee($event)"></ee-employee-editor>
+    <div *ngIf="departments">
+        <div *ngIf="departments.length == 0">
+            Please add a department
+        </div>
+        <div *ngIf="departments.length > 0">
+            <ee-employee-editor [departments]="departments" [employee]="editingEmployee" (onCancel)="cancelEditingEmployee()" (onSave)="saveEditingEmployee($event)"></ee-employee-editor>
+        </div>
     </div>
 </div>

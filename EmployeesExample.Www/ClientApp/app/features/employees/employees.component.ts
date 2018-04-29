@@ -16,6 +16,8 @@ export class EmployeesComponent implements OnInit
     departments: Department;
     employees: Employee[];
     editingEmployee: Employee;
+    filteredEmployees: Employee[];
+    query: string;
 
     constructor(private departmentsService: DepartmentsService, private employeesService: EmployeesService) 
     {
@@ -63,6 +65,18 @@ export class EmployeesComponent implements OnInit
     employeeIsEditing(employee: Employee)
     {
         return this.editingEmployee && this.editingEmployee.id == employee.id;
+    }
+
+    getFilteredEmployees()
+    {
+        if (this.query && this.query.length > 0)
+        {
+            return this.employeesService.filterEmployees(this.employees, this.query);
+        }
+        else
+        {
+            return this.employees;
+        }
     }
 
     saveEditingEmployee(args: OnSaveArgs)
