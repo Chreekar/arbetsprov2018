@@ -8,6 +8,7 @@ Lista och redigera påhittade avdelningar och anställda, spara i en databas i m
 3. kör `npm install`
 4. kör `node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js`
 5. kör `node node_modules/webpack/bin/webpack.js`
+6. Debugga eller kör från Visual Studio
 
 ### Noteringar om ServiceStack
 
